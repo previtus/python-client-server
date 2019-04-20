@@ -134,7 +134,12 @@ def evaluate_image_batch():
         # indicate that the request was a success
         data["success"] = True
 
-    return flask.jsonify(data)
+    t_to_jsonify = timer()
+    as_json = flask.jsonify(data)
+    t_to_jsonify = timer() - t_to_jsonify
+    print("JSONify took", t_to_jsonify, "sec.")
+
+    return as_json
 
 from tensorflow.python.client import device_lib
 def get_gpus_buses():
