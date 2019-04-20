@@ -119,20 +119,17 @@ def evaluate_image_batch():
         results = [] #serverside_model do something
         for image in images:
             results.append(image.shape)
+
+        # send back an image:
+        image = images[0]
+        data["image_response"] = image.tolist()
+
         t_end_eval = timer()
 
         data["results"] = results
         data["uids"] = uids
         data["time_pure_eval"] = t_end_eval-t_start_eval
         data["time_pure_decode"] = t_start_eval-t_start_decode
-
-
-        # send back an image:
-        image = images[0]
-        #img_str = cv2.imencode('.jpg', image)[1].tostring()
-        #print("encoded image as:",img_str)
-
-        data["image_response"] = image.tolist()
 
         # indicate that the request was a success
         data["success"] = True

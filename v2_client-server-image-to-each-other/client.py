@@ -29,10 +29,12 @@ start = timer()
 r = requests.post(Images_REST_API_URL, files=payload).json()
 total_time = timer() - start
 print("Time total", total_time, "divby"+str(BATCH_SIZE)+" =", total_time/float(BATCH_SIZE))
-print("request data", r)
+#print("request data", r)
 for i,item in enumerate(r['results']):
     print(r['uids'][i]," = len results", len(item), item)
 
+print("time_pure_eval", r["time_pure_eval"])
+print("time_pure_decode", r["time_pure_decode"])
 
 image_returned = np.array(r['image_response'])
 image = scipy.misc.toimage(image_returned)
